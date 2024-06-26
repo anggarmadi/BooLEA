@@ -47,10 +47,10 @@ const HistoryPeminjamanInventarisKonten = ({
                                 No
                             </th>
                             <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                Tanggal Pinjam
+                                Inventaris
                             </th>
                             <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                Batas Pengembalian
+                                Tanggal Pinjam
                             </th>
                             <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
                                 Waktu Pengembalian
@@ -75,13 +75,13 @@ const HistoryPeminjamanInventarisKonten = ({
                                         (currentPage - 1) * itemsPerPage}
                                 </td>
                                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                                    {new Date(
-                                        peminjaman.tanggal_peminjaman,
-                                    ).toLocaleDateString('id-ID')}
+                                    {peminjaman.DetailPeminjamanInventaris.map(
+                                        (detail) => detail.Inventari.name,
+                                    ).join(', ')}
                                 </td>
                                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                                     {new Date(
-                                        peminjaman.tanggal_pengembalian,
+                                        peminjaman.tanggal_peminjaman,
                                     ).toLocaleDateString('id-ID')}
                                 </td>
                                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
