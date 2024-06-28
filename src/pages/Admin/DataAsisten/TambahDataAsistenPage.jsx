@@ -52,7 +52,7 @@ function TambahDataAsistenPage() {
                     'Content-Type': 'application/json', // Correct Content-Type for JSON
                 },
             });
-            navigate('/dosen/jasa/riwayat');
+            navigate('/data-asisten');
         } catch (error) {
             if (
                 error.response &&
