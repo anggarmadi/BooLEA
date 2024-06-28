@@ -52,7 +52,7 @@ function EditDataBukuPage() {
             setOriginalBuku(bookData);
             setImagePreview(imageBuku);
             setError('');
-            console.log(bookData);
+            // console.log(bookData);
         } catch (error) {
             setError(error.response?.data?.message || 'Failed to fetch data');
         } finally {

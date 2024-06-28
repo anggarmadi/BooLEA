@@ -2,10 +2,10 @@ import React from 'react';
 import Navbar from '../../../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import SidebarMahasiswa from '../../../components/SidebarMahasiswa';
-import DetailBukuKonten from '../Konten/DetailBukuKonten';
 import Button from '../../../components/Button';
+import DetailInventarisKonten from '../Konten/DetailInventarisKonten';
 
-function MahasiswaDetailBukuPage() {
+function MahasiswaDetailInventarisPage() {
     const navigate = useNavigate();
     const handleKembaliClick = () => {
         navigate(-1);
@@ -26,14 +26,14 @@ function MahasiswaDetailBukuPage() {
                     </div>
                     <div className='flex justify-between items-center mb-4'>
                         <h1 className='text-3xl font-bold text-black-800'>
-                            Peminjaman Buku
+                            Peminjaman Inventaris
                         </h1>
                     </div>
-                    <DetailBukuKonten />
+                    <DetailInventarisKonten />
                 </div>
             </div>
         </div>
     );
 }
 
-export default MahasiswaDetailBukuPage;
+export default MahasiswaDetailInventarisPage;

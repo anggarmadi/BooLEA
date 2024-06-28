@@ -80,7 +80,7 @@ function PinjamJasa() {
     };
 
     const handleKembaliClick = () => {
-        navigate('/dosen/riwayat/jasa');
+        navigate('/dosen/jasa/riwayat');
     };
 
     const fields = [

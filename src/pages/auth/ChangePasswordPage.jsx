@@ -2,39 +2,107 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Button from '../../components/Button';
+import Form from '../../components/Form';
+import { Spinner } from '@material-tailwind/react';
+import api from '../../auth/AxiosInstance';
+import secureLocalStorage from 'react-secure-storage';
 
 function ChangePasswordPage() {
-    const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
-
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [errors, setErrors] = useState({});
+    const [jasa, setJasa] = useState({
+        currentPassword: '',
+        password: '',
+        confirmPassword: '',
+    });
 
-    const handleCurrentPasswordChange = (e) =>
-        setCurrentPassword(e.target.value);
-    const handleNewPasswordChange = (e) => setNewPassword(e.target.value);
-    const handleConfirmPasswordChange = (e) =>
-        setConfirmPassword(e.target.value);
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setJasa((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+        setErrors((prevState) => ({
+            ...prevState,
+            [name]: '',
+        }));
+    };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (newPassword !== confirmPassword) {
-            setError('New password and confirmation do not match.');
-            return;
+        setLoading(true);
+        setErrors({});
+        try {
+            const data = {
+                currentPassword: jasa.currentPassword,
+                password: jasa.password,
+                confirmPassword: jasa.confirmPassword,
+            };
+
+            await api.post(`/api/user/update-password`, data, {
+                headers: {
+                    Authorization: `Bearer ${secureLocalStorage.getItem('accessToken')}`,
+                    'Content-Type': 'application/json', // Correct Content-Type for JSON
+                },
+            });
+            navigate(-1);
+        } catch (error) {
+            if (
+                error.response &&
+                error.response.data &&
+                error.response.data.errors
+            ) {
+                const errorsArray = error.response.data.errors;
+                const errorsObject = errorsArray.reduce((acc, message) => {
+                    const [field, ...rest] = message.split(' ');
+                    let key = field.toLowerCase();
+                    // Adjust the key names to match form field names
+                    if (key === 'currentpassword') key = 'currentPassword';
+                    if (key === 'confirmpassword') key = 'confirmPassword';
+                    acc[key] = rest.join(' ');
+                    return acc;
+                }, {});
+                console.log(errorsObject); // Add this line
+                setErrors(errorsObject);
+            } else {
+                setError(
+                    error.response?.data?.message || 'Failed to submit data',
+                );
+            }
+        } finally {
+            setLoading(false);
         }
-        setSuccess('Password successfully changed.');
-        setError('');
-        setCurrentPassword('');
-        setNewPassword('');
-        setConfirmPassword('');
+    };
+
+    const handleReset = () => {
+        setJasa({
+            currentPassword: '',
+            password: '',
+            confirmPassword: '',
+        });
+        setErrors({});
     };
 
     const handleBack = () => {
         navigate(-1);
         console.log('Back button clicked');
     };
+
+    const fields = [
+        {
+            name: 'currentPassword',
+            label: 'Current Password',
+            type: 'password',
+        },
+        { name: 'password', label: 'New Password', type: 'password' },
+        {
+            name: 'confirmPassword',
+            label: 'Confirm New Password',
+            type: 'password',
+        },
+    ];
 
     return (
         <div className='h-screen flex flex-col'>
@@ -53,71 +121,24 @@ function ChangePasswordPage() {
                         </Button>
                     </div>
                     <div className='bg-white shadow-md rounded p-6 md:p-8'>
-                        {error && (
-                            <div className='text-red-500 mb-4'>{error}</div>
+                        {loading ? (
+                            <div className='flex justify-center py-10'>
+                                <Spinner />
+                            </div>
+                        ) : error ? (
+                            <div className='text-center py-10 text-red-500'>
+                                {error}
+                            </div>
+                        ) : (
+                            <Form
+                                fields={fields}
+                                formData={jasa}
+                                onInputChange={handleInputChange}
+                                onSubmit={handleSubmit}
+                                onReset={handleReset}
+                                errors={errors}
+                            />
                         )}
-                        {success && (
-                            <div className='text-green-500 mb-4'>{success}</div>
-                        )}
-                        <form onSubmit={handleSubmit}>
-                            <div className='mb-4'>
-                                <label className='block text-gray-700 mb-2'>
-                                    Current Password
-                                </label>
-                                <input
-                                    type='password'
-                                    value={currentPassword}
-                                    onChange={handleCurrentPasswordChange}
-                                    className='mt-1 p-3 border rounded w-full'
-                                    required
-                                />
-                            </div>
-                            <div className='mb-4'>
-                                <label className='block text-gray-700 mb-2'>
-                                    New Password
-                                </label>
-                                <input
-                                    type='password'
-                                    value={newPassword}
-                                    onChange={handleNewPasswordChange}
-                                    className='mt-1 p-3 border rounded w-full'
-                                    required
-                                />
-                            </div>
-                            <div className='mb-4'>
-                                <label className='block text-gray-700 mb-2'>
-                                    Confirm New Password
-                                </label>
-                                <input
-                                    type='password'
-                                    value={confirmPassword}
-                                    onChange={handleConfirmPasswordChange}
-                                    className='mt-1 p-3 border rounded w-full'
-                                    required
-                                />
-                            </div>
-                            <div className='flex justify-between mt-6'>
-                                <Button
-                                    type='reset'
-                                    className='bg-gray-500 text-white hover:bg-gray-600'
-                                    onClick={() => {
-                                        setCurrentPassword('');
-                                        setNewPassword('');
-                                        setConfirmPassword('');
-                                        setError('');
-                                        setSuccess('');
-                                    }}
-                                >
-                                    Reset
-                                </Button>
-                                <Button
-                                    type='submit'
-                                    className='bg-blue-500 text-white hover:bg-blue-600'
-                                >
-                                    Change Password
-                                </Button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>

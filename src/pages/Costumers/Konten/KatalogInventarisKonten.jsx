@@ -19,6 +19,10 @@ function KatalogInventarisKonten({ onAddToCart }) {
     const [totalItems, setTotalItems] = useState(0);
     const itemsPerPage = 10;
 
+    const handleDetail = (bukuId) => {
+        navigate(`/dosen/detail-inventaris/${bukuId}`);
+    };
+
     const BACKEND_URL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
@@ -157,7 +161,7 @@ function KatalogInventarisKonten({ onAddToCart }) {
                                     <Button
                                         className='bg-blue-500 text-white hover:bg-blue-600 mr-2'
                                         onClick={() => {
-                                            console.log('Lihat detail');
+                                            handleDetail(item.inventarisId);
                                         }}
                                     >
                                         Selengkapnya

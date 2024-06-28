@@ -22,6 +22,10 @@ function KatalogBukuKonten({ onAddToCart }) {
 
     const BACKEND_URL = import.meta.env.VITE_API_URL;
 
+    const handleDetail = (bukuId) => {
+        navigate(`/dosen/detail-buku/${bukuId}`);
+    };
+
     useEffect(() => {
         const accessToken = secureLocalStorage.getItem('accessToken');
         const user = secureLocalStorage.getItem('user');
@@ -167,7 +171,7 @@ function KatalogBukuKonten({ onAddToCart }) {
                                         <Button
                                             className='bg-blue-500 text-white hover:bg-blue-600 mr-2'
                                             onClick={() =>
-                                                console.log('Lihat detail')
+                                                handleDetail(book.bukuId)
                                             }
                                         >
                                             Selengkapnya

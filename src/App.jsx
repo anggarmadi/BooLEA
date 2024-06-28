@@ -54,11 +54,14 @@ import DosenHistoryPeminjamanInventarisPage from './pages/Costumers/Dosen/Histor
 import MahasiswaHistoryPeminjamanInventarisPage from './pages/Costumers/Mahasiswa/HistoryPeminjamanInventarisPage';
 import AsistenDashboardPage from './pages/Asisten/Profile/AsistenDashboardPage';
 import DetailInventarisPage from './pages/Costumers/DetailInventarisPage';
-import DetailJasa from './pages/Costumers/Dosen/Jasa/DetailJasa';
 import DosenProfile from './pages/Costumers/Dosen/DosenProfile';
 import AdminDataDosenPage from './pages/Admin/DataDosen/DataDosen';
 import MahasiswaKeranjangInventarisPage from './pages/Costumers/Mahasiswa/KeranjangInventarisPage';
-import DetailPeminjamanAsisten from './pages/Admin/PeminjamanAsisten/DetailPeminjamanAsisten';
+import DosenDetailInventarisPage from './pages/Costumers/Dosen/DetailInventarisPage';
+import MahasiswaDetailInventarisPage from './pages/Costumers/Mahasiswa/DetailInventarisPage';
+import MahasiswaDetailBukuPage from './pages/Costumers/Mahasiswa/DetailBukuPage';
+import DetailJasaPage from './pages/Costumers/Dosen/Jasa/DetailJasaPage';
+import AdminDetailJasaPage from './pages/Admin/PeminjamanAsisten/DetailPeminjamanAsisten';
 
 const router = createBrowserRouter([
     {
@@ -127,11 +130,19 @@ const router = createBrowserRouter([
             </ProtectedRoute>
         ),
     },
+    // {
+    //     path: '/detail-peminjaman-asisten/:id',
+    //     element: (
+    //         <ProtectedRoute allowedRoles={['kalab']}>
+    //             <DetailPeminjamanAsisten />
+    //         </ProtectedRoute>
+    //     ),
+    // },
     {
-        path: '/detail-peminjaman-asisten/:id',
+        path: '/jasa/:id',
         element: (
             <ProtectedRoute allowedRoles={['kalab']}>
-                <DetailPeminjamanAsisten />
+                <AdminDetailJasaPage />
             </ProtectedRoute>
         ),
     },
@@ -275,22 +286,22 @@ const router = createBrowserRouter([
             </ProtectedRoute>
         ),
     },
-    {
-        path: '/mahasiswa/katalog-inventaris/detail',
-        element: (
-            <ProtectedRoute allowedRoles={['mahasiswa']}>
-                <DetailInventarisPage />,
-            </ProtectedRoute>
-        ),
-    },
-    {
-        path: '/mahasiswa/katalog-inventaris/keranjang',
-        element: (
-            <ProtectedRoute allowedRoles={['mahasiswa']}>
-                <MahasiswaKeranjangBukuPage />
-            </ProtectedRoute>
-        ),
-    },
+    // {
+    //     path: '/mahasiswa/katalog-inventaris/detail',
+    //     element: (
+    //         <ProtectedRoute allowedRoles={['mahasiswa']}>
+    //             <DetailInventarisPage />,
+    //         </ProtectedRoute>
+    //     ),
+    // },
+    // {
+    //     path: '/mahasiswa/katalog-inventaris/keranjang',
+    //     element: (
+    //         <ProtectedRoute allowedRoles={['mahasiswa']}>
+    //             <MahasiswaKeranjangBukuPage />
+    //         </ProtectedRoute>
+    //     ),
+    // },
     {
         path: '/mahasiswa/histori-peminjaman-buku',
         element: (
@@ -324,6 +335,22 @@ const router = createBrowserRouter([
         ),
     },
     {
+        path: '/mahasiswa/detail-buku/:id',
+        element: (
+            <ProtectedRoute allowedRoles={['mahasiswa']}>
+                <MahasiswaDetailBukuPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/mahasiswa/detail-inventaris/:id',
+        element: (
+            <ProtectedRoute allowedRoles={['mahasiswa']}>
+                <MahasiswaDetailInventarisPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
         path: '/dosen/dashboard',
         element: (
             <ProtectedRoute allowedRoles={['dosen']}>
@@ -347,14 +374,14 @@ const router = createBrowserRouter([
             </ProtectedRoute>
         ),
     },
-    {
-        path: '/dosen/katalog-inventaris/detail',
-        element: (
-            <ProtectedRoute allowedRoles={['dosen']}>
-                <DetailInventarisPage />
-            </ProtectedRoute>
-        ),
-    },
+    // {
+    //     path: '/dosen/katalog-inventaris/detail',
+    //     element: (
+    //         <ProtectedRoute allowedRoles={['dosen']}>
+    //             <DetailInventarisPage />
+    //         </ProtectedRoute>
+    //     ),
+    // },
     {
         path: '/dosen/detail-buku/:id',
         element: (
@@ -388,10 +415,10 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: '/dosen/jasa/detail',
+        path: '/dosen/jasa/riwayat/:id',
         element: (
             <ProtectedRoute allowedRoles={['dosen']}>
-                <DetailJasa />
+                <DetailJasaPage />
             </ProtectedRoute>
         ),
     },
@@ -440,6 +467,14 @@ const router = createBrowserRouter([
         element: (
             <ProtectedRoute allowedRoles={['dosen']}>
                 <DosenProfile />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/dosen/detail-inventaris/:id',
+        element: (
+            <ProtectedRoute allowedRoles={['dosen']}>
+                <DosenDetailInventarisPage />
             </ProtectedRoute>
         ),
     },

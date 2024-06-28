@@ -13,8 +13,15 @@ const TabelPeminjamanAsisten = ({
 }) => {
     const navigate = useNavigate();
 
-    const handleDetailClick = (id) => {
-        navigate(`/detail-peminjaman-asisten/${id}`);
+    const truncateText = (text, maxLength) => {
+        console.log(`Textlength: ${text.length}`);
+        return text.length > maxLength
+            ? text.slice(0, maxLength) + '...'
+            : text;
+    };
+
+    const handleDetail = (jasaId) => {
+        navigate(`/dosen/jasa/riwayat/${jasaId}`);
     };
 
     return (
@@ -59,7 +66,7 @@ const TabelPeminjamanAsisten = ({
                                         {jasa.name}
                                     </td>
                                     <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                                        {jasa.deskripsi}
+                                        {truncateText(jasa.deskripsi, 100)}
                                     </td>
                                     <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                                         {jasa.status}
@@ -90,13 +97,25 @@ const TabelPeminjamanAsisten = ({
                                                     >
                                                         Decline
                                                     </button>
-                                                    <button className='bg-green-500 text-white px-4 py-1 rounded mr-2 hover:bg-green-600 transition duration-200'>
+                                                    <button
+                                                        className='bg-green-500 text-white px-4 py-1 rounded mr-2 hover:bg-green-600 transition duration-200'
+                                                        onClick={() =>
+                                                            handleDetail(
+                                                                jasa.jasaId,
+                                                            )
+                                                        }
+                                                    >
                                                         Detail
                                                     </button>
                                                 </div>
                                             </>
                                         ) : (
-                                            <button className='bg-orange-500 text-white px-4 py-1 rounded mr-2 hover:bg-green-600 transition duration-200'>
+                                            <button
+                                                className='bg-orange-500 text-white px-4 py-1 rounded mr-2 hover:bg-green-600 transition duration-200'
+                                                onClick={() =>
+                                                    handleDetail(jasa.jasaId)
+                                                }
+                                            >
                                                 Detail
                                             </button>
                                         )}

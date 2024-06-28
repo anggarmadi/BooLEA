@@ -6,6 +6,7 @@ import api from '../../../../auth/AxiosInstance';
 import secureLocalStorage from 'react-secure-storage';
 import SearchInput from '../../../../components/SearchInput';
 import JasaKonten from './JasaKonten';
+import DeleteConfirmationModal from '../../../../components/DeleteConfirmationModal';
 import SidebarDosen from '../../../../components/SidebarDosen';
 
 function JasaPage() {
@@ -16,6 +17,8 @@ function JasaPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [totalPages, setTotalPages] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedData, setSelectedData] = useState(null);
     const itemsPerPage = 10;
 
     useEffect(() => {
@@ -57,6 +60,34 @@ function JasaPage() {
     const handleSearch = (query) => {
         setSearchQuery(query);
         setCurrentPage(1);
+    };
+
+    const openModal = (jasa) => {
+        setSelectedData(jasa);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedData(null);
+    };
+
+    const handleCancel = async () => {
+        if (selectedData) {
+            try {
+                await api.patch(`/api/jasa/${selectedData.jasaId}/cancel`, {
+                    headers: {
+                        Authorization: `Bearer ${secureLocalStorage.getItem('accessToken')}`,
+                    },
+                });
+                fetchData(currentPage, searchQuery); // Refresh data
+                closeModal();
+            } catch (error) {
+                setError(
+                    error.response?.data?.message || 'Failed to delete data',
+                );
+            }
+        }
     };
 
     return (
@@ -103,6 +134,7 @@ function JasaPage() {
                                         totalItems={totalItems}
                                         itemsPerPage={itemsPerPage}
                                         onPageChange={handlePageChange}
+                                        openModal={openModal}
                                     />
                                 )}
                             </div>
@@ -110,6 +142,13 @@ function JasaPage() {
                     </div>
                 </div>
             </div>
+            <DeleteConfirmationModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onConfirm={handleCancel}
+                message={`Apakah Anda yakin ingin membatalkan peminjaman "${selectedData?.name}?"`}
+                header={'Batalkan Peminjaman Jasa'}
+            />
         </div>
     );
 }

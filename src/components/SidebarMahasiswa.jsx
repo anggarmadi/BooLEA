@@ -20,6 +20,7 @@ import {
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import secureLocalStorage from 'react-secure-storage';
 import api from '../auth/AxiosInstance';
+import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 
 export function SidebarMahasiswa() {
     const [isBukuOpen, setIsBukuOpen] = useState(false);
@@ -106,6 +107,13 @@ export function SidebarMahasiswa() {
                     label: 'Katalog Buku',
                 },
                 {
+                    to: '/mahasiswa/katalog-buku/cart',
+                    icon: (
+                        <ShoppingCartIcon className='h-5 w-5 text-blue-500' />
+                    ),
+                    label: 'Keranjang Buku',
+                },
+                {
                     to: '/mahasiswa/histori-peminjaman-buku',
                     icon: (
                         <ClipboardDocumentListIcon className='h-5 w-5 text-blue-500' />
@@ -131,6 +139,13 @@ export function SidebarMahasiswa() {
                         <DocumentTextIcon className='h-5 w-5 text-blue-500' />
                     ),
                     label: 'Katalog Inventaris',
+                },
+                {
+                    to: '/mahasiswa/katalog-inventaris/cart',
+                    icon: (
+                        <ShoppingCartIcon className='h-5 w-5 text-blue-500' />
+                    ),
+                    label: 'Keranjang Inventaris',
                 },
                 {
                     to: '/mahasiswa/histori-peminjaman-inventaris',

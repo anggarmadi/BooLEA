@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../../components/Navbar';
-import SidebarDosen from '../../../components/SidebarDosen';
 import { Spinner } from '@material-tailwind/react';
 import SearchInput from '../../../components/SearchInput';
 import DeleteConfirmationModal from '../../../components/DeleteConfirmationModal';
 import api from '../../../auth/AxiosInstance';
 import secureLocalStorage from 'react-secure-storage';
 import HistoryPeminjamanBukuKonten from '../Konten/HistoryPeminjamanBukuKonten';
+import SidebarMahasiswa from '../../../components/SidebarMahasiswa';
 
 function MahasiswaHistoryPeminjamanBukuPage() {
     const [data, setData] = useState([]);
@@ -104,7 +104,7 @@ function MahasiswaHistoryPeminjamanBukuPage() {
         <div className='h-screen flex flex-col'>
             <Navbar />
             <div className='flex flex-1 overflow-hidden'>
-                <SidebarDosen />
+                <SidebarMahasiswa />
                 <div className='flex-1 flex flex-col p-4 bg-gray-100 overflow-y-auto'>
                     <div className='container mx-auto p-4 bg-white shadow-md rounded'>
                         <h2 className='text-2xl font-bold mb-4'>
