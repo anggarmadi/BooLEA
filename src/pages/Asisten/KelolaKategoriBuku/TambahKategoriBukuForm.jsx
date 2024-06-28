@@ -99,8 +99,8 @@ const TambahKategoriBukuForm = ({ onClose, fetchData, selectedKategori }) => {
         <div className='container mx-auto p-4 bg-white shadow-md rounded'>
             <h1 className='text-2xl font-bold mb-4'>
                 {selectedKategori
-                    ? 'Edit Data Inventaris'
-                    : 'Tambah Data Inventaris'}
+                    ? 'Edit Data Kategori Buku'
+                    : 'Tambah Data Kategori Buku'}
             </h1>
             {loading ? (
                 <div className='flex justify-center py-10'>
