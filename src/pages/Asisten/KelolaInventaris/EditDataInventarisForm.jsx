@@ -99,6 +99,7 @@ function EditDataInventarisForm() {
             await api.patch(`/api/inventaris/${id}/update`, formData, {
                 headers: {
                     Authorization: `Bearer ${secureLocalStorage.getItem('accessToken')}`,
+                    'Content-Type': 'multipart/form-data',
                 },
             });
             navigate('/kelola-inventaris');
