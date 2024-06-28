@@ -5,6 +5,7 @@ import TabelAsisten from './TabelAsisten';
 import SearchInput from '../../../components/SearchInput';
 import api from '../../../auth/AxiosInstance';
 import secureLocalStorage from 'react-secure-storage';
+import { Link } from 'react-router-dom';
 import { Spinner } from '@material-tailwind/react';
 import DeleteConfirmationModal from '../../../components/DeleteConfirmationModal';
 
@@ -106,12 +107,18 @@ const AdminDataAsistenPage = () => {
                                             value={searchQuery}
                                         />
                                     </div>
-                                    <a
+                                    {/* <a
                                         href='/data-asisten/tambah'
                                         className='bg-blue-100 text-blue-700 px-4 py-2 rounded'
                                     >
                                         Tambah
-                                    </a>
+                                    </a> */}
+                                    <Link
+                                        to='/data-asisten/tambah'
+                                        className='bg-blue-100 text-blue-700 px-4 py-2 rounded'
+                                    >
+                                        Tambah
+                                    </Link>
                                 </div>
 
                                 {loading ? (

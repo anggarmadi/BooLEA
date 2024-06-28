@@ -108,12 +108,18 @@ function KelolaBukuPage() {
                                             value={searchQuery}
                                         />
                                     </div>
-                                    <a
+                                    {/* <a
                                         href='/kelola-buku/tambah'
                                         className='bg-blue-100 text-blue-700 px-4 py-2 rounded'
                                     >
                                         Tambah
-                                    </a>
+                                    </a> */}
+                                    <Link
+                                        to='/kelola-buku/tambah'
+                                        className='bg-blue-100 text-blue-700 px-4 py-2 rounded'
+                                    >
+                                        Tambah
+                                    </Link>
                                 </div>
                                 {loading ? (
                                     <div className='flex justify-center py-10'>

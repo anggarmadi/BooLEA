@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Card, Input, Button, Typography } from '@material-tailwind/react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../../auth/AxiosInstance';
 
 function RegisterPage() {
@@ -216,13 +216,13 @@ function RegisterPage() {
                                 className='mt-4 text-center font-normal'
                             >
                                 Already have an account?{' '}
-                                <a
-                                    href='/login'
+                                <Link
+                                    to='/login'
                                     className='font-medium'
                                     style={{ color: '#5E8BFF' }}
                                 >
-                                    Sign In
-                                </a>
+                                    Sign in
+                                </Link>
                             </Typography>
                         </form>
                     </Card>
