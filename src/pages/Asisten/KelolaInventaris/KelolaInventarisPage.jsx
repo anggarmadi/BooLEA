@@ -7,6 +7,7 @@ import api from '../../../auth/AxiosInstance';
 import secureLocalStorage from 'react-secure-storage';
 import SearchInput from '../../../components/SearchInput';
 import DeleteConfirmationModal from '../../../components/DeleteConfirmationModal';
+import { Link } from 'react-router-dom';
 
 function KelolaInventarisPage() {
     const [data, setData] = useState([]);
