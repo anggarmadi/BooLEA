@@ -120,7 +120,7 @@ function KelolaInventarisPage() {
                                         Tambah
                                     </a> */}
                                     <Link
-                                        href='/kelola-inventaris/tambah'
+                                        to='/kelola-inventaris/tambah'
                                         className='bg-blue-100 text-blue-700 px-4 py-2 rounded'
                                     >
                                         Tambah
