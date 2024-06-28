@@ -106,12 +106,18 @@ const AdminDataAsistenPage = () => {
                                             value={searchQuery}
                                         />
                                     </div>
-                                    <a
+                                    {/* <a
                                         href='/data-asisten/tambah'
                                         className='bg-blue-100 text-blue-700 px-4 py-2 rounded'
                                     >
                                         Tambah
-                                    </a>
+                                    </a> */}
+                                    <Link
+                                        href='/data-asisten/tambah'
+                                        className='bg-blue-100 text-blue-700 px-4 py-2 rounded'
+                                    >
+                                        Tambah
+                                    </Link>
                                 </div>
 
                                 {loading ? (

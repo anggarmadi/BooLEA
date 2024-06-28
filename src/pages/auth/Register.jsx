@@ -216,13 +216,13 @@ function RegisterPage() {
                                 className='mt-4 text-center font-normal'
                             >
                                 Already have an account?{' '}
-                                <a
-                                    href='/login'
+                                <Link
+                                    to='/login'
                                     className='font-medium'
                                     style={{ color: '#5E8BFF' }}
                                 >
-                                    Sign In
-                                </a>
+                                    Sign in
+                                </Link>
                             </Typography>
                         </form>
                     </Card>
