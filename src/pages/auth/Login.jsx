@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, Input, Button, Typography } from '@material-tailwind/react';
 import { PuffLoader } from 'react-spinners';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../../auth/AxiosInstance';
 import secureLocalStorage from 'react-secure-storage';
 
@@ -175,13 +175,20 @@ function LoginPage() {
                                 className='mt-4 text-center font-normal'
                             >
                                 Don't have an account?{' '}
-                                <a
+                                <Link
+                                    to='/register'
+                                    className='font-medium'
+                                    style={{ color: '#5E8BFF' }}
+                                >
+                                    Sign Up
+                                </Link>
+                                {/* <a
                                     href='/register'
                                     className='font-medium'
                                     style={{ color: '#5E8BFF' }}
                                 >
                                     Sign Up
-                                </a>
+                                </a> */}
                             </Typography>
                         </form>
                     </Card>
