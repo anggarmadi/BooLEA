@@ -63,10 +63,10 @@ function EditDataInventarisForm() {
             ...prevState,
             [name]: value,
         }));
-        setErrors((prevState) => ({
-            ...prevState,
-            [name]: '',
-        }));
+        // setErrors((prevState) => ({
+        //     ...prevState,
+        //     [name]: '',
+        // }));
     };
 
     const handleImageChange = (e) => {
@@ -112,6 +112,7 @@ function EditDataInventarisForm() {
                     return acc;
                 }, {});
                 setErrors(errorsObject);
+                console.log(errorsObject);
             } else {
                 setError(
                     error.response?.data?.message || 'Failed to update data',
