@@ -6,6 +6,7 @@ import api from '../../../auth/AxiosInstance';
 import secureLocalStorage from 'react-secure-storage';
 
 const CartKonten = () => {
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
@@ -18,9 +19,11 @@ const CartKonten = () => {
 
     const handleLoanRequest = async () => {
         const selectedCartItems = cartItems.filter((item, index) => selectedItems[index]);
+        
 
         if (selectedCartItems.length === 0) {
             console.log('Keranjang belanja kosong.');
+            setErrorMessage('Keranjang belanja kosong.');
             return;
         }
 
@@ -48,8 +51,10 @@ const CartKonten = () => {
                     navigate('/dosen/histori-peminjaman-buku');
                 }
             }
+            setErrorMessage('');
             setCartItems([]);
         } catch (error) {
+            setErrorMessage('Gagal melakukan permintaan peminjaman.');
             console.error('Gagal melakukan permintaan peminjaman:', error);
         }
     };
@@ -86,6 +91,11 @@ const CartKonten = () => {
                     Ajukan Peminjaman
                 </Button>
             </div>
+            {errorMessage && (
+                <div className='text-red-500 mt-4'>
+                    {errorMessage}
+                </div>
+            )}
         </div>
     );
 };
