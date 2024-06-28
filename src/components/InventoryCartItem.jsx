@@ -7,7 +7,7 @@ const InventoryItem = ({ item, isSelected, onSelectChange, onCartUpdate }) => {
 
     useEffect(() => {
         const storedCartItems =
-            JSON.parse(localStorage.getItem('cartItems')) || [];
+            JSON.parse(localStorage.getItem('inventoryCartItems')) || [];
         const currentItem = storedCartItems.find(
             (cartItem) => cartItem.inventarisId === inventarisId,
         );
@@ -31,22 +31,22 @@ const InventoryItem = ({ item, isSelected, onSelectChange, onCartUpdate }) => {
     const updateQuantity = (newQuantity) => {
         setQuantity(newQuantity);
         const storedCartItems =
-            JSON.parse(localStorage.getItem('cartItems')) || [];
+            JSON.parse(localStorage.getItem('inventoryCartItems')) || [];
         const updatedCartItems = storedCartItems.map((cartItem) =>
             cartItem.inventarisId === inventarisId
                 ? { ...cartItem, quantity: newQuantity }
                 : cartItem,
         );
-        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+        localStorage.setItem('inventoryCartItems', JSON.stringify(updatedCartItems));
     };
 
     const handleRemove = () => {
         const storedCartItems =
-            JSON.parse(localStorage.getItem('cartItems')) || [];
+            JSON.parse(localStorage.getItem('inventoryCartItems')) || [];
         const updatedCartItems = storedCartItems.filter(
             (cartItem) => cartItem.inventarisId !== inventarisId,
         );
-        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+        localStorage.setItem('inventoryCartItems', JSON.stringify(updatedCartItems));
         setQuantity(0);
         if (onCartUpdate) onCartUpdate();
     };

@@ -75,7 +75,7 @@ function KatalogInventarisKonten({ onAddToCart }) {
 
     const handleAddToCart = (inventaris) => {
         const storedCartItems =
-            JSON.parse(localStorage.getItem('cartItems')) || [];
+            JSON.parse(localStorage.getItem('inventoryCartItems')) || [];
 
         // Check if the inventaris is already in the cart
         const existingCartItem = storedCartItems.find(
@@ -94,7 +94,7 @@ function KatalogInventarisKonten({ onAddToCart }) {
                         : item,
                 );
                 localStorage.setItem(
-                    'cartItems',
+                    'inventoryCartItems',
                     JSON.stringify(updatedCartItems),
                 );
             }
@@ -104,7 +104,7 @@ function KatalogInventarisKonten({ onAddToCart }) {
                 ...storedCartItems,
                 { ...inventaris, quantity: 1 },
             ];
-            localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+            localStorage.setItem('inventoryCartItems', JSON.stringify(newCartItems));
         }
 
         // Optionally, you can also trigger a callback or update state to reflect addition

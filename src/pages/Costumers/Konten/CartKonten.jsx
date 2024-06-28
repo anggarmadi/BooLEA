@@ -8,58 +8,61 @@ import secureLocalStorage from 'react-secure-storage';
 const CartKonten = () => {
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
+    const [selectedItems, setSelectedItems] = useState([]);
 
     useEffect(() => {
-        const storedCartItems =
-            JSON.parse(localStorage.getItem('cartItems')) || [];
+        const storedCartItems = JSON.parse(localStorage.getItem('bookCartItems')) || [];
         setCartItems(storedCartItems);
+        setSelectedItems(new Array(storedCartItems.length).fill(false));
     }, []);
 
-    const handleBack = () => {
-        navigate(-1);
-    };
-
     const handleLoanRequest = async () => {
-        // Pastikan cartItems tidak kosong sebelum mengirim permintaan
-        if (cartItems.length === 0) {
+        const selectedCartItems = cartItems.filter((item, index) => selectedItems[index]);
+
+        if (selectedCartItems.length === 0) {
             console.log('Keranjang belanja kosong.');
             return;
         }
 
         const loanRequestData = {
-            DetailPeminjamanBukus: cartItems.map((book) => ({
-                bukuId: book.bukuId, // Pastikan ini sesuai dengan struktur bukuId yang Anda inginkan
+            DetailPeminjamanBukus: selectedCartItems.map((book) => ({
+                bukuId: book.bukuId,
             })),
         };
 
         try {
-            const response = await api.post(
-                '/api/pinjam/buku',
-                loanRequestData,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${secureLocalStorage.getItem('accessToken')}`,
-                    },
+            const response = await api.post('/api/pinjam/buku', loanRequestData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${secureLocalStorage.getItem('accessToken')}`,
                 },
-            );
+            });
 
             console.log('Permintaan peminjaman berhasil:', response.data);
-            navigate('/dosen/histori-peminjaman-buku');
-            // Tambahkan logika untuk menangani hasil dari permintaan peminjaman
-
-            // Optional: Clear cartItems or update local state as needed
+            const user = secureLocalStorage.getItem('user');
+            if (user) {
+                const userRole = user.role;
+                if (userRole === 'mahasiswa') {
+                    navigate('/mahasiswa/histori-peminjaman-buku');
+                } else if (userRole === 'dosen') {
+                    navigate('/dosen/histori-peminjaman-buku');
+                }
+            }
             setCartItems([]);
         } catch (error) {
             console.error('Gagal melakukan permintaan peminjaman:', error);
-            // Tambahkan logika untuk menangani kesalahan
         }
     };
 
     const handleCartUpdate = () => {
-        const storedCartItems =
-            JSON.parse(localStorage.getItem('cartItems')) || [];
+        const storedCartItems = JSON.parse(localStorage.getItem('bookCartItems')) || [];
         setCartItems(storedCartItems);
+    };
+
+    const handleSelectChange = (index, checked) => {
+        const updatedSelectedItems = [...selectedItems];
+        updatedSelectedItems[index] = checked;
+        setSelectedItems(updatedSelectedItems);
     };
 
     return (
@@ -69,6 +72,8 @@ const CartKonten = () => {
                     <CartItem
                         key={index}
                         item={item}
+                        isSelected={selectedItems[index]}
+                        onSelectChange={(checked) => handleSelectChange(index, checked)}
                         onCartUpdate={handleCartUpdate}
                     />
                 ))}

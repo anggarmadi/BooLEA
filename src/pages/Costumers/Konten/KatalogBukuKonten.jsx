@@ -76,7 +76,7 @@ function KatalogBukuKonten({ onAddToCart }) {
 
     const handleAddToCart = (book) => {
         const storedCartItems =
-            JSON.parse(localStorage.getItem('cartItems')) || [];
+            JSON.parse(localStorage.getItem('bookCartItems')) || [];
 
         // Check if the book is already in the cart
         const existingCartItem = storedCartItems.find(
@@ -95,14 +95,14 @@ function KatalogBukuKonten({ onAddToCart }) {
                         : item,
                 );
                 localStorage.setItem(
-                    'cartItems',
+                    'bookCartItems',
                     JSON.stringify(updatedCartItems),
                 );
             }
         } else {
             // If the book doesn't exist, add it with quantity 1
             const newCartItems = [...storedCartItems, { ...book, quantity: 1 }];
-            localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+            localStorage.setItem('bookCartItems', JSON.stringify(newCartItems));
         }
 
         // Optionally, you can also trigger a callback or update state to reflect addition

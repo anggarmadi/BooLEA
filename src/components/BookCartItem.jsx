@@ -7,11 +7,8 @@ const CartItem = ({ item, isSelected, onSelectChange, onCartUpdate }) => {
     const maxQuantity = 1;
 
     useEffect(() => {
-        const storedCartItems =
-            JSON.parse(localStorage.getItem('cartItems')) || [];
-        const currentItem = storedCartItems.find(
-            (cartItem) => cartItem.bukuId === bukuId,
-        );
+        const storedCartItems = JSON.parse(localStorage.getItem('bookCartItems')) || [];
+        const currentItem = storedCartItems.find((cartItem) => cartItem.bukuId === bukuId);
         if (currentItem) {
             setQuantity(currentItem.quantity);
         }
@@ -32,24 +29,18 @@ const CartItem = ({ item, isSelected, onSelectChange, onCartUpdate }) => {
     const updateQuantity = (newQuantity) => {
         if (newQuantity <= maxQuantity) {
             setQuantity(newQuantity);
-            const storedCartItems =
-                JSON.parse(localStorage.getItem('cartItems')) || [];
+            const storedCartItems = JSON.parse(localStorage.getItem('bookCartItems')) || [];
             const updatedCartItems = storedCartItems.map((cartItem) =>
-                cartItem.bukuId === bukuId
-                    ? { ...cartItem, quantity: newQuantity }
-                    : cartItem,
+                cartItem.bukuId === bukuId ? { ...cartItem, quantity: newQuantity } : cartItem
             );
-            localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+            localStorage.setItem('bookCartItems', JSON.stringify(updatedCartItems));
         }
     };
 
     const handleRemoveFromCart = () => {
-        const storedCartItems =
-            JSON.parse(localStorage.getItem('cartItems')) || [];
-        const updatedCartItems = storedCartItems.filter(
-            (cartItem) => cartItem.bukuId !== bukuId,
-        );
-        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+        const storedCartItems = JSON.parse(localStorage.getItem('bookCartItems')) || [];
+        const updatedCartItems = storedCartItems.filter((cartItem) => cartItem.bukuId !== bukuId);
+        localStorage.setItem('bookCartItems', JSON.stringify(updatedCartItems));
         if (onCartUpdate) onCartUpdate();
     };
 
@@ -63,9 +54,7 @@ const CartItem = ({ item, isSelected, onSelectChange, onCartUpdate }) => {
                     onChange={(e) => onSelectChange(e.target.checked)}
                 />
                 <div>
-                    <h2 className='text-lg font-semibold text-gray-800 mb-2'>
-                        {name}
-                    </h2>
+                    <h2 className='text-lg font-semibold text-gray-800 mb-2'>{name}</h2>
                     <span className='text-green-600 font-semibold'>
                         <strong>Tersedia:</strong> {jumlah_tersedia}
                     </span>
