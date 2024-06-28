@@ -62,7 +62,7 @@ export function SidebarAdmin() {
     };
 
     const handleImageError = () => {
-        setImage('images/profile.webp'); // Set a default profile image path here
+        setImage('../../images/profile.webp'); // Set a default profile image path here
     };
 
     const toggleSidebar = () => {
