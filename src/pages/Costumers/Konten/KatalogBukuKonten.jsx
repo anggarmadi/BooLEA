@@ -23,7 +23,15 @@ function KatalogBukuKonten({ onAddToCart }) {
     const BACKEND_URL = import.meta.env.VITE_API_URL;
 
     const handleDetail = (bukuId) => {
-        navigate(`/dosen/detail-buku/${bukuId}`);
+        const user = secureLocalStorage.getItem('user');
+        if (user) {
+            const userRole = user.role;
+            if (userRole === 'dosen') {
+                navigate(`/dosen/detail-buku/${bukuId}`);
+            } else if (userRole === 'mahasiswa') {
+                navigate(`/mahasiswa/detail-buku/${bukuId}`);
+            }
+        }
     };
 
     useEffect(() => {

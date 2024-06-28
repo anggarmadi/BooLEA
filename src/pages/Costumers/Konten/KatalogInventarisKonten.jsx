@@ -19,8 +19,20 @@ function KatalogInventarisKonten({ onAddToCart }) {
     const [totalItems, setTotalItems] = useState(0);
     const itemsPerPage = 10;
 
-    const handleDetail = (bukuId) => {
-        navigate(`/dosen/detail-inventaris/${bukuId}`);
+    // const handleDetail = (bukuId) => {
+    //     navigate(`/dosen/detail-inventaris/${bukuId}`);
+    // };
+
+    const handleDetail = (inventarisId) => {
+        const user = secureLocalStorage.getItem('user');
+        if (user) {
+            const userRole = user.role;
+            if (userRole === 'dosen') {
+                navigate(`/dosen/detail-inventaris/${inventarisId}`);
+            } else if (userRole === 'mahasiswa') {
+                navigate(`/mahasiswa/detail-inventaris/${inventarisId}`);
+            }
+        }
     };
 
     const BACKEND_URL = import.meta.env.VITE_API_URL;
@@ -104,7 +116,10 @@ function KatalogInventarisKonten({ onAddToCart }) {
                 ...storedCartItems,
                 { ...inventaris, quantity: 1 },
             ];
-            localStorage.setItem('inventoryCartItems', JSON.stringify(newCartItems));
+            localStorage.setItem(
+                'inventoryCartItems',
+                JSON.stringify(newCartItems),
+            );
         }
 
         // Optionally, you can also trigger a callback or update state to reflect addition
