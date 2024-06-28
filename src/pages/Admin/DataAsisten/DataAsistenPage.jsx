@@ -5,6 +5,7 @@ import TabelAsisten from './TabelAsisten';
 import SearchInput from '../../../components/SearchInput';
 import api from '../../../auth/AxiosInstance';
 import secureLocalStorage from 'react-secure-storage';
+import { Link } from 'react-router-dom';
 import { Spinner } from '@material-tailwind/react';
 import DeleteConfirmationModal from '../../../components/DeleteConfirmationModal';
 
