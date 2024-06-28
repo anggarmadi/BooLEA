@@ -7,6 +7,7 @@ import SearchInput from '../../../components/SearchInput';
 import secureLocalStorage from 'react-secure-storage';
 import { Spinner } from '@material-tailwind/react';
 import DeleteConfirmationModal from '../../../components/DeleteConfirmationModal';
+import { Link } from 'react-router-dom';
 
 function KelolaBukuPage() {
     const [data, setData] = useState([]);
